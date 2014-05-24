@@ -77,8 +77,13 @@ fi
 
 # Install aptitude as package manager
 
-logme "Installing aptitude package manager"
+if is_package_installed aptitude; then
+	logme "Aptitude package is already installed"
 
-apt-get -y install aptitude
-aptitude update
+else
+	logme "Installing aptitude package manager"
+
+	apt-get -y install aptitude
+	aptitude update
+fi
 
