@@ -87,3 +87,14 @@ else
 	aptitude update
 fi
 
+# Install puppet
+
+if is_package_installed puppet; then
+	logme "Puppet package is already installed"
+
+else
+	logme "Installing puppet"
+
+	aptitude -y install puppet
+fi
+
