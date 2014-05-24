@@ -23,6 +23,16 @@ logme() {
 	/bin/echo -e "${GREEN}$*${RESTORE}"
 }
 
+is_package_installed() {
+	if [ -z "$1" ]; then
+		fatal "is_package_installed: No package specified"
+	elif dpkg -s $1 >/dev/null 2>&1; then
+		return 0
+	fi
+
+	return 1
+}
+
 # Check user id
 
 if [ "`id -u`" -ne 0 ]; then
@@ -49,9 +59,20 @@ fi
 
 # Install puppet repository
 
-logme "Downloading puppet release package"
-if ! wget -O${TMPDIR}/puppetlabs-release.deb https://apt.puppetlabs.com/puppetlabs-release-${DISTRIB_CODENAME}.deb; then
-	fatal "Failed to download puppet release package"
+if is_package_installed puppetlabs-release; then
+	logme "Puppet release package is already installed"
+
+else
+	logme "Downloading puppet release package"
+
+	if ! wget -O${TMPDIR}/puppetlabs-release.deb https://apt.puppetlabs.com/puppetlabs-release-${DISTRIB_CODENAME}.deb; then
+		fatal "Failed to download puppet release package"
+	fi
+
+	logme "Installing puppet release package"
+
+	dpkg -i ${TMPDIR}/puppetlabs-release.deb
+	apt-get update
 fi
 
 # Install aptitude as package manager
@@ -60,6 +81,4 @@ logme "Installing aptitude package manager"
 
 apt-get -y install aptitude
 aptitude update
-dpkg -i ${TMPDIR}/puppetlabs-release.deb
-apt-get update
 
