@@ -33,6 +33,19 @@ is_package_installed() {
 	return 1
 }
 
+install_puppet_module() {
+	SOURCE=$1
+	MODULE=`echo $1 | cut -d- -f2-`
+
+	if [ -z "$1" ]; then
+		fatal "install_puppet_module: No puppet module specified"
+	elif [ ! -d /etc/puppet/modules/${MODULE} ]; then
+		puppet module install ${SOURCE} || fatal "install_puppet_module: Failed to install puppet module '${SOURCE}'"
+	else
+		echo "install_puppet_module: Puppet module ${SOURCE} is already installed"
+	fi
+}
+
 # Check user id
 
 if [ "`id -u`" -ne 0 ]; then
@@ -98,3 +111,8 @@ else
 	aptitude -y install puppet
 fi
 
+# Install puppet modules
+
+logme "Installing puppet modules"
+
+install_puppet_module puppetlabs-apt
