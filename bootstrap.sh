@@ -54,6 +54,12 @@ if ! wget -O${TMPDIR}/puppetlabs-release.deb https://apt.puppetlabs.com/puppetla
 	fatal "Failed to download puppet release package"
 fi
 
+# Install aptitude as package manager
+
+logme "Installing aptitude package manager"
+
+apt-get -y install aptitude
+aptitude update
 dpkg -i ${TMPDIR}/puppetlabs-release.deb
 apt-get update
 
