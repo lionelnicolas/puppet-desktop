@@ -35,3 +35,15 @@ exec { 'puppet-fix-non-existing-hiera-config':
 	onlyif  => "/usr/bin/test ! -f /etc/puppet/hiera.yaml",
 }
 
+
+#
+# apt/aptitude
+#
+
+class { 'apt': }
+
+exec { 'aptitude-update':
+	command     => "/usr/bin/aptitude update",
+	refreshonly => true,
+}
+
