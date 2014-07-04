@@ -47,3 +47,9 @@ exec { 'aptitude-update':
 	refreshonly => true,
 }
 
+exec { 'apt-remove-src':
+	command => "/bin/sed -ri 's/^deb\\-src/# deb-src/' /etc/apt/sources.list",
+	onlyif  => "/bin/grep ^deb-src /etc/apt/sources.list",
+	notify  => Exec['aptitude-update'],
+}
+
