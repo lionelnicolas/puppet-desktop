@@ -1,4 +1,26 @@
 #
+# Custom defines and classes
+#
+
+define http::deb ($url, $depends = false) {
+	exec { "${name}-download":
+		command => "/usr/bin/wget -q -O/tmp/${name}.deb ${url}",
+		creates => "/tmp/${name}.deb",
+	}
+
+	package { "${name}":
+		ensure   => installed,
+		provider => dpkg,
+		source   => "/tmp/${name}.deb",
+		require  => $depends ? {
+			false   =>  Exec["${name}-download"],
+			default => [Exec["${name}-download"], Package[$depends]],
+		}
+	}
+}
+
+
+#
 # kernel
 #
 
