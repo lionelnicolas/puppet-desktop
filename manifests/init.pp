@@ -62,3 +62,12 @@ file { '/etc/apt/apt.conf.d/90custom':
 	notify  => Exec['aptitude-update'],
 }
 
+
+#
+
+#
+# google chrome
+#
+
+class { 'google_chrome': }
+
