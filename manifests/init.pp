@@ -53,3 +53,12 @@ exec { 'apt-remove-src':
 	notify  => Exec['aptitude-update'],
 }
 
+file { '/etc/apt/apt.conf.d/90custom':
+	ensure  => file,
+	content => "
+		Acquire::Languages \"none\";
+	",
+	mode    => 0644,
+	notify  => Exec['aptitude-update'],
+}
+
