@@ -93,3 +93,10 @@ file { '/etc/apt/apt.conf.d/90custom':
 
 class { 'google_chrome': }
 
+
+#
+# Seafile client
+#
+
+http::deb { "seafile": url => "https://bitbucket.org/haiwen/seafile/downloads/seafile_3.0.4_amd64.deb" }
+
