@@ -116,6 +116,5 @@ fi
 logme "Installing puppet modules"
 
 install_puppet_module puppetlabs-apt
-install_puppet_module fiddyspence-sysctl
 install_puppet_module jamesnetherton-google_chrome
 
