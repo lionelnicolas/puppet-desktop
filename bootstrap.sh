@@ -7,7 +7,7 @@ YELLOW='\033[01;33m'
 BLUE='\033[01;34m'
 
 LSB_RELEASE=/etc/lsb-release
-TMPDIR=`mktemp -d bootstrap`
+TMPDIR=`mktemp -d /tmp/bootstrap_XXXXXX`
 
 fatal() {
 	/bin/echo
