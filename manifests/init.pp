@@ -1,13 +1,9 @@
-#
-# Custom defines and classes
-#
-
-#
 # kernel
-#
-
 
 include sysctl::disable_ipv6
+
+
+# packages
 
 include packages
 include packages::aptitude
@@ -25,7 +21,9 @@ include packages::network
 include packages::editors
 include packages::virtualization
 
-#
+include chrome
+
+
 # puppet
 #
 
@@ -48,10 +46,8 @@ exec { 'puppet-fix-non-existing-hiera-config':
 #
 
 #
-# google chrome
 #
 
-class { 'google_chrome': }
 
 
 #
