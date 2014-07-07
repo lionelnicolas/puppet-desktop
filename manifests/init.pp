@@ -23,6 +23,8 @@ include packages::virtualization
 
 include chrome
 
+include seafile::client
+
 
 # puppet
 
