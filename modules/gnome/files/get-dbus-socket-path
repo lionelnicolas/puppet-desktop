@@ -1,0 +1,13 @@
+#!/bin/sh
+
+UID=`id -u`
+DBUSPID=`pgrep --uid ${UID} -f 'dbus-daemon.*unix:abstract'`
+DBUSSOCK=`netstat -pln --unix 2>/dev/null | grep "${DBUSPID}/" | cut -d@ -f2`
+
+if [ -z "${DBUSPID}" -o -z "${DBUSSOCK}" ]; then
+	echo "DBUS socket not found" >&2
+	exit 1
+fi
+
+echo "export DBUS_SESSION_BUS_ADDRESS=\"unix:abstract=${DBUSSOCK}\""
+

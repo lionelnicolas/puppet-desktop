@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if [ -z "$3" ]; then
+	echo "Usage: $0 SCHEMA KEY VALUE"
+	exit 1
+fi
+
+SCHEMA="$1"
+KEY="$2"
+VALUE="$3"
+
+UID=`id -u`
+DBUSPID=`pgrep --uid ${UID} -f 'dbus-daemon.*unix:abstract'`
+DBUSSOCK=`netstat -pln --unix 2>/dev/null | grep "${DBUSPID}/" | cut -d@ -f2`
+
+if [ -z "${DBUSPID}" -o -z "${DBUSSOCK}" ]; then
+	echo "DBUS socket not found"
+	exit 1
+fi
+
+export DBUS_SESSION_BUS_ADDRESS="unix:abstract=${DBUSSOCK}"
+gsettings set ${SCHEMA} ${KEY} "${VALUE}"
+
