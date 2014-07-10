@@ -3,6 +3,8 @@
 # Exit on failure
 set -e
 
+export LANG=C
+
 RESTORE='\033[0m'
 RED='\033[01;31m'
 GREEN='\033[01;32m'
@@ -32,7 +34,7 @@ logme() {
 is_package_installed() {
 	if [ -z "$1" ]; then
 		fatal "is_package_installed: No package specified"
-	elif dpkg -s $1 >/dev/null 2>&1; then
+	elif dpkg -s $1 2>&1 | grep -q 'Status: install ok installed'; then
 		return 0
 	fi
 
