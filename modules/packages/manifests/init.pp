@@ -132,6 +132,8 @@ class packages::ui {
 
 class packages::network {
 	package { [
+		'axel',
+		'curl',
 		'nmap',
 		'openssh-server',
 		'openvpn',
