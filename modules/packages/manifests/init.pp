@@ -36,7 +36,6 @@ class packages::system {
 		'kpartx',
 		'most',
 		'pwgen',
-		'virt-viewer',
 		]:
 			ensure => installed,
 	}
