@@ -12,6 +12,21 @@ class gnome {
 		owner  => "root",
 		group  => "root",
 	}
+
+	file { "/home/${gnome::params::user}/.config":
+		ensure => directory,
+		mode   => 0700,
+		owner  => $gnome::params::user,
+		group  => $gnome::params::user,
+	}
+
+	file { "/home/${gnome::params::user}/.config/autostart":
+		ensure  => directory,
+		mode    => 0700,
+		owner   => $gnome::params::user,
+		group   => $gnome::params::user,
+		require => File["/home/${gnome::params::user}/.config"],
+	}
 }
 
 class gnome::params (
