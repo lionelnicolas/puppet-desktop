@@ -42,14 +42,3 @@ include gnome::theme
 include gnome::clock
 include gnome::weather
 
-
-
-
-
-#
-#
-
-
-
-#
-#
