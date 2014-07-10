@@ -15,6 +15,7 @@ class gnome {
 }
 
 class gnome::params (
+	$user,
 	$theme             = 'Adwaita',
 	$weather_city      = "3534>Montreal, Quebec (CA)",
 	$weather_tempunit  = "celsius",

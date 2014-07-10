@@ -1,4 +1,4 @@
-define gnome::gsettings ($value, $user = 1000) {
+define gnome::gsettings ($value) {
 	$keys   = split($name, ":")
 	$schema = $keys[0]
 	$key    = $keys[1]
@@ -7,7 +7,7 @@ define gnome::gsettings ($value, $user = 1000) {
 	exec { "${name}-exec":
 		command     => "/usr/bin/set-gsetting-from-puppet ${schema} ${key} \"${value}\"",
 		unless      => "/usr/bin/gsettings get ${schema} ${key} | /bin/grep \"${match}\"",
-		user        => $user,
+		user        => $gnome::params::user,
 		require     => File["/usr/bin/set-gsetting-from-puppet"],
 	}
 }

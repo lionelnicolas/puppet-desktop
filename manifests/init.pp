@@ -44,6 +44,7 @@ include puppet::fixwarning
 #########
 
 class { "gnome::params":
+	user             => "lionel",
 	weather_tempunit => "celsius",
 }
 
