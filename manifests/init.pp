@@ -5,6 +5,21 @@
 include sysctl::disable_ipv6
 
 
+#########
+# gnome #
+#########
+
+class { "gnome::params":
+	user             => "lionel",
+	weather_tempunit => "celsius",
+}
+
+include gnome
+include gnome::theme
+include gnome::clock
+include gnome::weather
+
+
 ############
 # packages #
 ############
@@ -37,19 +52,4 @@ include seafile::client
 ##########
 
 include puppet::fixwarning
-
-
-#########
-# gnome #
-#########
-
-class { "gnome::params":
-	user             => "lionel",
-	weather_tempunit => "celsius",
-}
-
-include gnome
-include gnome::theme
-include gnome::clock
-include gnome::weather
 
