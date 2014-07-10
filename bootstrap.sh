@@ -141,3 +141,8 @@ if [ -n "${INIT_URL}" ]; then
 	wget --output-document manifests/init.pp ${INIT_URL}
 fi
 
+# Apply puppet manifests
+
+MODULEPATH=`puppet config print modulepath`
+puppet apply manifests/ --modulepath ${MODULEPATH}:${PWD}/modules
+
