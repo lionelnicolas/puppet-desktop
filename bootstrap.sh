@@ -11,6 +11,8 @@ BLUE='\033[01;34m'
 
 LSB_RELEASE=/etc/lsb-release
 TMPDIR=`mktemp -d /tmp/bootstrap_XXXXXX`
+TGZ=master.tgz
+WGET_URL=${WGET_URL:-https://github.com/lionelnicolas/puppet-desktop/tarball/master}
 
 fatal() {
 	/bin/echo
@@ -119,4 +121,23 @@ fi
 logme "Installing puppet modules"
 
 install_puppet_module puppetlabs-apt
+
+# Get puppet manifests
+
+cd ${TMPDIR}
+
+if [ -z "${GIT_URL}" ]; then
+	logme "Getting puppet manifests from tarball ${WGET_URL}"
+	wget --output-document ${TGZ} ${WGET_URL}
+	tar xf ${TGZ} --strip 1
+	rm -f ${TGZ}
+else
+	logme "Getting puppet manifests from git ${GIT_URL}"
+	git clone ${GIT_URL} .
+fi
+
+if [ -n "${INIT_URL}" ]; then
+	logme "Overriding init manifest with ${INIT_URL}"
+	wget --output-document manifests/init.pp ${INIT_URL}
+fi
 
