@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Exit on failure
+set -e
+
 RESTORE='\033[0m'
 RED='\033[01;31m'
 GREEN='\033[01;32m'
