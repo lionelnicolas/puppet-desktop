@@ -136,6 +136,11 @@ if [ -z "${GIT_URL}" ]; then
 	rm -f ${TGZ}
 else
 	logme "Getting puppet manifests from git ${GIT_URL}"
+
+	if ! is_package_installed git-core; then
+		aptitude -y install git-core
+	fi
+
 	git clone ${GIT_URL} .
 fi
 
