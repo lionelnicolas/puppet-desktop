@@ -1,13 +1,19 @@
-# kernel
+##########
+# kernel #
+##########
 
 include sysctl::disable_ipv6
 
 
-# packages
+############
+# packages #
+############
 
+# apt/aptitude configuration
 include packages
 include packages::aptitude
 
+# install usefull packages
 include packages::dev
 include packages::libs
 include packages::system
@@ -22,16 +28,20 @@ include packages::editors
 include packages::virtualization
 
 include chrome
-
 include seafile::client
 
 
-# puppet
+
+##########
+# puppet #
+##########
 
 include puppet::fixwarning
 
 
-# gnome
+#########
+# gnome #
+#########
 
 class { "gnome::params":
 	weather_tempunit => "celsius",
