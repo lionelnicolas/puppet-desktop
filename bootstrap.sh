@@ -9,6 +9,7 @@ GREEN='\033[01;32m'
 YELLOW='\033[01;33m'
 BLUE='\033[01;34m'
 
+PPWD=${PWD}
 LSB_RELEASE=/etc/lsb-release
 TMPDIR=`mktemp -d /tmp/bootstrap_XXXXXX`
 TGZ=master.tgz
@@ -145,4 +146,11 @@ fi
 
 MODULEPATH=`puppet config print modulepath`
 puppet apply manifests/ --modulepath ${MODULEPATH}:${PWD}/modules
+
+# Clean
+
+cd ${PPWD}
+rm -rf ${TMPDIR}
+
+logme "Done."
 
